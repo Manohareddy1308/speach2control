@@ -11,8 +11,17 @@ from thefuzz import fuzz
 # --- CONFIGURATION ---
 # ==============================================================================
 CONFIDENCE_THRESHOLD = 70
-EXECUTABLE_NAME = "speak2control.exe" if platform.system() == "Windows" else "./speak2control"
-C_SOURCE_FILE = "core.c"
+
+# Get the directory containing this Python file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Paths to the C source file and compiled executable
+C_SOURCE_FILE = os.path.join(BASE_DIR, "core.c")
+
+if platform.system() == "Windows":
+    EXECUTABLE_NAME = os.path.join(BASE_DIR, "speak2control.exe")
+else:
+    EXECUTABLE_NAME = os.path.join(BASE_DIR, "speak2control")
 
 # Contains ANSI escape codes for colored console text.
 class Colors:
@@ -37,10 +46,10 @@ def animate_listening(stop_event):
 
 def compile_c_code():
     """Checks if the C executable exists and compiles it if not."""
-    if not os.path.exists(EXECUTABLE_NAME.replace("./", "")):
+    if not os.path.exists(EXECUTABLE_NAME):
         print(f"Compiling '{C_SOURCE_FILE}'...")
         try:
-            exe_name = EXECUTABLE_NAME.replace(".exe", "").replace("./", "")
+            exe_name = EXECUTABLE_NAME
             subprocess.run(["gcc", C_SOURCE_FILE, "-o", exe_name], check=True, capture_output=True, text=True)
             print("Compilation successful.")
         except (FileNotFoundError, subprocess.CalledProcessError) as e:
