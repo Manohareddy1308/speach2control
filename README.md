@@ -249,3 +249,33 @@ Potential improvements include:
 Speech2Control was developed as a **team-based end-semester project for C programming**.
 
 The project was developed collaboratively by a four-member team, with different components and features divided among the team members.
+
+
+
+
+
+## 📸 Demo
+
+### Application Running
+
+The application listens for voice commands through the microphone.
+
+![Application Running](screenshots/01-application-running.png)
+
+### Voice Command Execution
+
+Speech2Control recognizes a spoken command and passes it to the C command execution engine.
+
+![Voice Command](screenshots/02-youtube-command.png)
+
+### System Usage
+
+The application can retrieve CPU, memory, and disk usage information.
+
+![System Usage](screenshots/03-system-usage.png)
+
+### Application Launching
+
+Applications such as Calculator can be launched using voice commands.
+
+![Calculator](screenshots/04-calculator.png)
