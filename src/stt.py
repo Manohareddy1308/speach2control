@@ -61,7 +61,7 @@ def run_c_command(args):
     """Executes the compiled C program with the given arguments."""
     try:
         command = [EXECUTABLE_NAME] + args
-        print(f"-> Python is passing command to C: {' '.join(command)}")
+        print("→ Executing command...")
         # Use Popen to allow the C program's output to stream in real-time
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
         # Print the output from the C program line by line
@@ -81,7 +81,7 @@ def process_voice_command(text):
     Uses fuzzy matching to find the best command and routes it to the C program.
     """
     text = text.lower()
-    print(f"\nYou said: '{text}'")
+    print(f'\n🎤 Command: "{text}"')
 
     # All commands are routed to the C program. Keywords help fuzzy matching.
     commands = {
@@ -114,7 +114,7 @@ def process_voice_command(text):
     scores = {cmd: fuzz.partial_ratio(phrase, text) for cmd, phrase in commands.items()}
     best_match_category, best_score = max(scores.items(), key=lambda item: item[1])
 
-    print(f"DEBUG: Best Match Category='{best_match_category}' with score {best_score}")
+    print(f"✓ Recognized: {best_match_category}")
 
     if best_score < CONFIDENCE_THRESHOLD:
         print(Colors.WARNING + "Command not recognized. Please try again." + Colors.ENDC)
